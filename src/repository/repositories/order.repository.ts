@@ -10,14 +10,14 @@ export class OrdersRepository {
 	async createOrder(flowerId: string, data: OrdersDto): Promise<any> {
 		const { kind, numbers } = data;
 
-		// Отримання даних про квіток (ціну і кількість)
+		
 		const flower = await this.getFlower(flowerId);
 		const { price } = flower;
 
 		// Розрахунок загальної ціни
 		const totalPrice = price * numbers;
 
-		// Перевірка чи є достатньо квітів для створення замовлення
+		
 		if (flower.number < numbers) {
 			throw new BadRequestException('Not enough flowers available');
 		}
@@ -37,7 +37,7 @@ export class OrdersRepository {
 		return await this.prisma.orders.create({
 			data: {
 				...data,
-				count: data.numbers, // Додавання поля count замість numbers
+				count: data.numbers, 
 				price: totalPrice,
 			},
 		});
