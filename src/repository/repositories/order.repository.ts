@@ -14,7 +14,7 @@ export class OrdersRepository {
 		const flower = await this.getFlower(flowerId);
 		const { price } = flower;
 
-		// Розрахунок загальної ціни
+		
 		const totalPrice = price * numbers;
 
 		
@@ -22,7 +22,7 @@ export class OrdersRepository {
 			throw new BadRequestException('Not enough flowers available');
 		}
 
-		// Оновлення кількості квітів у базі даних
+		
 		await this.prisma.flowers.update({
 			where: {
 				id: flowerId,
