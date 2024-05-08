@@ -1,28 +1,28 @@
 import {
 	Controller,
-	Post,
-	Delete,
-	Param,
-	Body,
 	HttpCode,
 	HttpStatus,
+	Post,
+	Param,
+	Body,
+	Delete,
+	Get,
 } from '@nestjs/common';
-import { OrdersService } from './orders.service';
+import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { OrdersDto } from 'src/common/dto/orders/orders.dto';
 import { OrdersResponseDto } from 'src/common/dto/orders/response';
-import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { OrdersService } from './orders.service';
 
 @Controller('orders')
 @ApiTags('Orders')
 @ApiBearerAuth()
-@Controller('orders')
 export class OrdersController {
 	constructor(private readonly ordersService: OrdersService) {}
 
 	@ApiOperation({ description: 'Create Orders' })
 	@HttpCode(HttpStatus.OK)
 	@ApiResponse({ type: OrdersResponseDto })
-	@Post(':flowerId')
+	@Post('/:flowerId')
 	async createOrder(
 		@Param('flowerId') flowerId: string,
 		@Body() data: OrdersDto
@@ -33,8 +33,17 @@ export class OrdersController {
 	@ApiOperation({ description: 'Delete Orders' })
 	@HttpCode(HttpStatus.OK)
 	@ApiBearerAuth()
-	@Delete(':id')
+	@Delete('/deleteOrder/:id')
 	async deleteOrder(@Param('id') id: string): Promise<void> {
 		await this.ordersService.deleteOrder(id);
+	}
+
+	@ApiOperation({ description: 'Delete Orders' })
+	@HttpCode(HttpStatus.OK)
+	@ApiBearerAuth()
+	@Get('/getOrder/:id')
+	async getOrder(@Param('id') id: string): Promise<OrdersResponseDto[]> {
+		const order = await this.ordersService.getOrderById(id);
+		return [order];
 	}
 }

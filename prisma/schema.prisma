@@ -26,3 +26,11 @@ model Orders {
   price   Int
   count   Int
 }
+
+model Clients {
+  id            String @id @default(uuid())
+  name          String @db.VarChar(255)
+  password      String @db.VarChar(255)
+  access_token  String?
+	refresh_token String?
+}

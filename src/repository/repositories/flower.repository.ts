@@ -21,17 +21,6 @@ export class FlowerRepository {
 		}
 	}
 
-	// async getFlower(id: string): Promise<Flowers> {
-	// 	try {
-	// 		return await this.prisma.flowers.findFirst({
-	// 			where: {
-	// 				id: id,
-	// 			},
-	// 		});
-	// 	} catch (error) {
-	// 		throw new BadRequestException(error);
-	// 	}
-	// }
 	async deleteFlower(id: string): Promise<FloweResponseDto> {
 		const flowerToDelete = await this.prisma.flowers.findUnique({
 			where: {

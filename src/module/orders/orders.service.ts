@@ -1,5 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { Orders } from '@prisma/client';
 import { OrdersDto } from 'src/common/dto/orders/orders.dto';
+import { OrdersResponseDto } from 'src/common/dto/orders/response';
 import { OrdersRepository } from 'src/repository/repositories/order.repository';
 
 @Injectable()
@@ -8,6 +10,15 @@ export class OrdersService {
 
 	async createOrder(flowerId: string, data: OrdersDto): Promise<any> {
 		return await this.ordersRepository.createOrder(flowerId, data);
+	}
+
+	async getOrderById(id: string): Promise<Orders> {
+		try {
+			const order = await this.ordersRepository.getOrderById(id);
+			return order;
+		} catch (error) {
+			throw new BadRequestException(error);
+		}
 	}
 
 	async deleteOrder(id: string): Promise<void> {

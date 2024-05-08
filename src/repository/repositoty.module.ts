@@ -4,6 +4,7 @@ import { FlowerRepository, PhotoRepository } from './repositories';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from 'prisma/prisma.service';
 import { OrdersRepository } from './repositories/order.repository';
+import { ClientsRepository } from './repositories/client.repository';
 
 const providers = [
 	ConfigService,
@@ -11,6 +12,7 @@ const providers = [
 	PrismaService,
 	PhotoRepository,
 	OrdersRepository,
+	ClientsRepository,
 ];
 
 @Global()

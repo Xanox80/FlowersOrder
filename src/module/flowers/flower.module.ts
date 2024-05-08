@@ -7,9 +7,9 @@ const providers = [FlowerService];
 const modules = [RepositoryModule];
 
 @Module({
-  imports: [...modules],
-  controllers: [FlowerController],
-  providers,
-  exports: [...providers],
+	imports: [...modules],
+	controllers: [FlowerController],
+	providers,
+	exports: [...providers],
 })
 export class FlowerModule {}

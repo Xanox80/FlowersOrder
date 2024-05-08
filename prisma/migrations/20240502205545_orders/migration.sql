@@ -11,7 +11,18 @@ CREATE TABLE "Flowers" (
 -- CreateTable
 CREATE TABLE "Photos" (
     "id" TEXT NOT NULL,
-    "photo" VARCHAR(100000) NOT NULL,
+    "photo" TEXT NOT NULL,
 
     CONSTRAINT "Photos_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Orders" (
+    "id" TEXT NOT NULL,
+    "kind" VARCHAR(255) NOT NULL,
+    "numbers" INTEGER NOT NULL,
+    "price" INTEGER NOT NULL,
+    "count" INTEGER NOT NULL,
+
+    CONSTRAINT "Orders_pkey" PRIMARY KEY ("id")
 );
