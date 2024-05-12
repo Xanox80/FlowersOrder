@@ -1,39 +1,24 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { Flowers, Orders } from '@prisma/client';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { Flowers, Orders, Prisma } from '@prisma/client';
 import { PrismaService } from 'prisma/prisma.service';
 import { OrdersDto } from 'src/common/dto/orders/orders.dto';
+import { OrdersUpdaterequestDto } from 'src/common/dto/orders/request';
 
 @Injectable()
 export class OrdersRepository {
 	constructor(private readonly prisma: PrismaService) {}
 
 	async createOrder(flowerId: string, data: OrdersDto): Promise<any> {
-		const { kind, numbers } = data;
-
-<<<<<<< HEAD
+		const { numbers } = data;
 		const flower = await this.getFlower(flowerId);
 		const { price } = flower;
 
 		const totalPrice = price * numbers;
 
-=======
-		
-		const flower = await this.getFlower(flowerId);
-		const { price } = flower;
-
-		
-		const totalPrice = price * numbers;
-
-		
->>>>>>> cd104f94e9b109281e54b95dbf94b7a6773a21b0
 		if (flower.number < numbers) {
 			throw new BadRequestException('Not enough flowers available');
 		}
 
-<<<<<<< HEAD
-=======
-		
->>>>>>> cd104f94e9b109281e54b95dbf94b7a6773a21b0
 		await this.prisma.flowers.update({
 			where: {
 				id: flowerId,
@@ -48,11 +33,62 @@ export class OrdersRepository {
 		return await this.prisma.orders.create({
 			data: {
 				...data,
-<<<<<<< HEAD
-				count: data.numbers,
-=======
-				count: data.numbers, 
->>>>>>> cd104f94e9b109281e54b95dbf94b7a6773a21b0
+				price: totalPrice,
+			},
+		});
+	}
+	async updateOrder(
+		orderId: string,
+		flowerId: string,
+		data: OrdersUpdaterequestDto
+	): Promise<any> {
+		const { numbers } = data;
+		const order = await this.prisma.orders.findUnique({
+			where: {
+				id: orderId,
+			},
+		});
+
+		if (!order) {
+			throw new NotFoundException('Order not found');
+		}
+
+		const flower = await this.getFlower(flowerId);
+		const { price } = flower;
+		const totalPrice = price * numbers;
+
+		if (flower.number < numbers) {
+			throw new BadRequestException('Not enough flowers available');
+		}
+
+		await this.prisma.flowers.update({
+			where: {
+				id: flowerId,
+			},
+			data: {
+				number: {
+					increment: order.numbers,
+				},
+			},
+		});
+
+		await this.prisma.flowers.update({
+			where: {
+				id: flowerId,
+			},
+			data: {
+				number: {
+					decrement: numbers,
+				},
+			},
+		});
+
+		return await this.prisma.orders.update({
+			where: {
+				id: orderId,
+			},
+			data: {
+				...data,
 				price: totalPrice,
 			},
 		});

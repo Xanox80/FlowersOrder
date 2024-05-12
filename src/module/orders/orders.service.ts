@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { Orders } from '@prisma/client';
 import { OrdersDto } from 'src/common/dto/orders/orders.dto';
+import { OrdersUpdaterequestDto } from 'src/common/dto/orders/request';
 import { OrdersResponseDto } from 'src/common/dto/orders/response';
 import { OrdersRepository } from 'src/repository/repositories/order.repository';
 
@@ -23,5 +24,17 @@ export class OrdersService {
 
 	async deleteOrder(id: string): Promise<void> {
 		await this.ordersRepository.deleteOrders(id);
+	}
+
+	async updateOrders(
+		flowerId: string,
+		id: string,
+		data: OrdersUpdaterequestDto
+	): Promise<any> {
+		try {
+			return await this.ordersRepository.updateOrder(flowerId, id, data);
+		} catch (error) {
+			throw new BadRequestException(error.message);
+		}
 	}
 }

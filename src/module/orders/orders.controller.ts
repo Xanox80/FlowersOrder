@@ -7,11 +7,15 @@ import {
 	Body,
 	Delete,
 	Get,
+	Put,
+	BadRequestException,
+	Query,
 } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { OrdersDto } from 'src/common/dto/orders/orders.dto';
 import { OrdersResponseDto } from 'src/common/dto/orders/response';
 import { OrdersService } from './orders.service';
+import { OrdersUpdaterequestDto } from 'src/common/dto/orders/request';
 
 @Controller('orders')
 @ApiTags('Orders')
@@ -45,5 +49,19 @@ export class OrdersController {
 	async getOrder(@Param('id') id: string): Promise<OrdersResponseDto[]> {
 		const order = await this.ordersService.getOrderById(id);
 		return [order];
+	}
+
+	@Put(':orderId')
+	async updateOrder(
+		@Param('orderId') orderId: string,
+		@Query('flowerId') flowerId: string,
+		@Body() updateOrderDto: OrdersUpdaterequestDto
+	): Promise<any> {
+		try {
+			const { ...data } = updateOrderDto;
+			return await this.ordersService.updateOrders(orderId, flowerId, data);
+		} catch (error) {
+			throw new BadRequestException(error.message);
+		}
 	}
 }

@@ -1,9 +1,9 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
 import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class OrdersUpdaterequestDto {
-	@ApiPropertyOptional()
+	@ApiProperty()
 	@IsString()
 	@IsNotEmpty()
 	@Expose()
@@ -25,11 +25,5 @@ export class OrdersUpdaterequestDto {
 	@IsString()
 	@IsNotEmpty()
 	@Expose()
-	price: number;
-
-	@ApiProperty()
-	@IsString()
-	@IsNotEmpty()
-	@Expose()
-	count: number;
+	price: string;
 }
