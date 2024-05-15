@@ -34,3 +34,9 @@ model Clients {
   access_token  String?
 	refresh_token String?
 }
+
+model Decorations {
+  id    String @id @default(uuid())
+  name  String @db.VarChar(255)
+  price Int
+}

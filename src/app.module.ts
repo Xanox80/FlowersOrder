@@ -6,6 +6,7 @@ import { FlowerModule } from './module/flowers/flower.module';
 import { PhotoModule } from './module/photos/photo.module';
 import { OrdersModule } from './module/orders/orders.module';
 import { ClientModule } from './module/clients/client.module';
+import { DecoratoinModule } from './module/decorations/decoration.module';
 
 @Module({
 	imports: [
@@ -15,6 +16,7 @@ import { ClientModule } from './module/clients/client.module';
 		PhotoModule,
 		OrdersModule,
 		ClientModule,
+		DecoratoinModule,
 	],
 	controllers: [],
 	providers: [ConfigService, PrismaService],
