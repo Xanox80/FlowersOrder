@@ -58,8 +58,11 @@ export class OrdersController {
 		@Body() updateOrderDto: OrdersUpdaterequestDto
 	): Promise<any> {
 		try {
-			const { ...data } = updateOrderDto;
-			return await this.ordersService.updateOrders(orderId, flowerId, data);
+			return await this.ordersService.updateOrders(
+				orderId,
+				flowerId,
+				updateOrderDto
+			);
 		} catch (error) {
 			throw new BadRequestException(error.message);
 		}

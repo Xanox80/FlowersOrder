@@ -3,12 +3,6 @@ import { Expose } from 'class-transformer';
 import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class OrdersUpdaterequestDto {
-	@ApiProperty()
-	@IsString()
-	@IsNotEmpty()
-	@Expose()
-	id: string;
-
 	@ApiProperty({ example: 'Bogdan' })
 	@IsString()
 	@IsNotEmpty()
@@ -26,4 +20,16 @@ export class OrdersUpdaterequestDto {
 	@IsNotEmpty()
 	@Expose()
 	price: string;
+
+	@ApiProperty()
+	@IsString()
+	@IsNotEmpty()
+	@Expose()
+	day: string;
+
+	@ApiProperty({ example: '12 : 00' })
+	@IsString()
+	@IsNotEmpty()
+	@Expose()
+	time: string;
 }

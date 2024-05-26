@@ -67,18 +67,7 @@ export class OrdersRepository {
 			},
 			data: {
 				number: {
-					increment: order.numbers,
-				},
-			},
-		});
-
-		await this.prisma.flowers.update({
-			where: {
-				id: flowerId,
-			},
-			data: {
-				number: {
-					decrement: numbers,
+					increment: order.numbers - numbers,
 				},
 			},
 		});

@@ -29,4 +29,16 @@ export class OrdersDto {
 	@IsNotEmpty()
 	@Expose()
 	count: number;
+
+	@ApiProperty({ example: 'Thuesday' })
+	@IsString()
+	@IsNotEmpty()
+	@Expose()
+	day: string;
+
+	@ApiProperty({ example: '14 : 00' })
+	@IsString()
+	@IsNotEmpty()
+	@Expose()
+	time: string;
 }

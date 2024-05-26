@@ -32,6 +32,18 @@ export class OrdersResponseDto {
 	@Expose()
 	count: number;
 
+	@ApiProperty({ example: 'Thuesday' })
+	@IsString()
+	@IsNotEmpty()
+	@Expose()
+	day: string;
+
+	@ApiProperty({ example: '14 : 00' })
+	@IsString()
+	@IsNotEmpty()
+	@Expose()
+	time: string;
+
 	public static mapFrom(data: Flowers): OrdersResponseDto {
 		return plainToClass(OrdersResponseDto, data, { excludeExtraneousValues: true });
 	}

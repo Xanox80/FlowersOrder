@@ -25,12 +25,14 @@ model Orders {
   numbers Int
   price   Int
   count   Int
+  day     String @db.VarChar(255)
+  time    String @db.VarChar(255)
 }
 
 model Clients {
-  id            String @id @default(uuid())
-  name          String @db.VarChar(255)
-  password      String @db.VarChar(255)
+  id            String  @id @default(uuid())
+  name          String  @db.VarChar(255)
+  password      String  @db.VarChar(255)
   access_token  String?
 	refresh_token String?
 }
@@ -39,4 +41,17 @@ model Decorations {
   id    String @id @default(uuid())
   name  String @db.VarChar(255)
   price Int
+}
+
+model CreateABouquet {
+  id     String @id @default(uuid())
+  create String @db.VarChar(255)
+  care   String @db.VarChar(255)
+}
+
+model Poll {
+  id       String @id @default(uuid())
+  rating   Int
+  personal String @db.VarChar(255)
+  quality  String @db.VarChar(255)
 }

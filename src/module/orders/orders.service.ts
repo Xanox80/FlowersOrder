@@ -2,7 +2,6 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { Orders } from '@prisma/client';
 import { OrdersDto } from 'src/common/dto/orders/orders.dto';
 import { OrdersUpdaterequestDto } from 'src/common/dto/orders/request';
-import { OrdersResponseDto } from 'src/common/dto/orders/response';
 import { OrdersRepository } from 'src/repository/repositories/order.repository';
 
 @Injectable()
